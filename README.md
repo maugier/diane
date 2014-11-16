@@ -28,4 +28,4 @@ That's it for now.. I've only been working on this for a single day !
 
 ## Development
 
-So far, absolutely no authentication or authorization, anyone can access everything. This is me
+So far, absolutely no authentication or authorization, anyone can access everything.
