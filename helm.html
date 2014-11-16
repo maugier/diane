@@ -3,42 +3,18 @@
     <head>
         <meta encoding="UTF-8">
         <title>Helm</title>
-        <link rel="stylesheet" href="diane.css">
+        <link rel="stylesheet" href="/static/diane.css">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
+        <script src="/static/client.js"></script>
+        <script src="/static/draw.js"></script>
     </head>
     <body>
-
-        <h1>Helm - <span id="status" class="nok">Disconnected</span></h1>
-
-        <canvas id="helm" width="800" height="600" />
-
-
-        <script> 
-            var global = io();  
-            global.on('connect', function() {
-                $('#status').removeClass('nok').addClass('ok').text("Connected");        
-            });
-            global.on('disconnect', function() {
-                $('#status').removeClass('ok').addClass('nok').text("Disconnected");        
-            });
-            global.on('cc', function(count) {
-               $('#connections').text(count); 
-            });
-            global.on('start', function() {
-                $('#running').removeClass('nok').addClass('ok').text("Running");
-            });
-            global.on('stop', function() {
-                $('#running').removeClass('ok').addClass('nok').text("Paused");
-            });
-            global.on('tick', function(time) {
-                $('#time').text(time);
-            });
-            
-
-            $('#start').click(function(e) { global.emit('start', {}); });
-            $('#stop').click(function(e) { global.emit('stop', {}); });
-
-        </script>
+        <canvas id="radar" width="800" height="600" />
+        <div id="zoomcontrols">
+            <button id="zoomin">+</button>
+            <button id="zoomout">-</button>
+        </div>
+        <script src="/static/radar.js"></script>
     </body>
 </html>

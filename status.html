@@ -3,7 +3,7 @@
     <head>
         <meta encoding="UTF-8">
         <title>Simulation Status</title>
-        <link rel="stylesheet" href="diane.css">
+        <link rel="stylesheet" href="/static/diane.css">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
     </head>
@@ -17,6 +17,7 @@
         <button class="nok" id="stop">Stop</button>
 
         <p>Connected clients: <span id="connections" class="ok">?</span></p>
+
         <script> 
             var global = io();  
             global.on('connect', function() {

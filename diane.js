@@ -1,4 +1,5 @@
-var app = require('express')()
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
@@ -8,10 +9,8 @@ var world = require('./world.js').create();
 
 var running = undefined;
 
-
 function tick() {
     world.tick();
-    console.log("tick " + world.time);
     io.emit('tick', world.time);
 }
 
@@ -40,15 +39,11 @@ app.get('/helm', function(req,res) {
     res.sendFile(__dirname + "/helm.html"); 
 });
 
-app.get('/diane.css', function(req,res) {
-    res.sendFile(__dirname + "/diane.css");
+app.get('/world.js', function(req,res) {
+    res.sendFile(__dirname + "/world.js");
 });
 
-app.get('/draw.js', function(req,res) {
-    res.sendFile(__dirname + "/draw.js");
-});
-
-
+app.use('/static', express.static(__dirname + "/static"));
 
 // Global socket
 io.on('connection', function(socket){
@@ -62,8 +57,12 @@ io.on('connection', function(socket){
 
     socket.on('start', start);
     socket.on('stop', stop);
+    socket.on('chat', function(msg) {
+        io.emit('chat', msg); 
+    });
 
     socket.emit(running === undefined ? 'stop' : 'start');
+    socket.emit('world', world);
 
 });
 
