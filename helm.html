@@ -2,21 +2,18 @@
 <html>
     <head>
         <meta encoding="UTF-8">
-        <title>Simulation Status</title>
+        <title>Helm</title>
         <link rel="stylesheet" href="diane.css">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
     </head>
     <body>
-        <h1>Simulation status</h1>
-        <p>Server: <span id="status" class="nok">DISCONNECTED</span></p>
-        <p>Simulation status: <span id="running" class="nok">?</span></p>
-        <p>Simulation time: <span id="time" class="ok">0</span></p>
 
-        <button class="ok" id="start">Start</button>
-        <button class="nok" id="stop">Stop</button>
+        <h1>Helm - <span id="status" class="nok">Disconnected</span></h1>
 
-        <p>Connected clients: <span id="connections" class="ok">?</span></p>
+        <canvas id="helm" width="800" height="600" />
+
+
         <script> 
             var global = io();  
             global.on('connect', function() {

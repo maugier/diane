@@ -3,14 +3,24 @@ body {
     background-color: black;
 }
 
+button {
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+span {
+    border-width: 1px;
+    border-style: solid;
+}
+
 .ok {
     background-color: #004000;
-    color: "green";
-    border: solid 1px green;
+    color: lime;
+    border-color: green;
 }
 
 .nok {
     background-color: #400000;
-    color: "red";
-    border: solid 1px red;
+    color: red;
+    border-color: red;
 }
