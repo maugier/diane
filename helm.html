@@ -17,10 +17,17 @@
         <div id="zoomcontrols">
             <button id="zoomin">+</button>
             <button id="zoomout">-</button>
+            <input type="range" name="speed" id="speed" min="0" max="10" value="0">
         </div>
 
         <script src="/static/client.js"></script>
         <script src="/static/draw.js"></script>
         <script src="/static/radar.js"></script>
+        <script>
+            $('#speed').change(function(e) {
+                console.log("Set speed to " + $(this).val());
+                shipCommand({speed: $(this).val()});
+            });
+        </script>
     </body>
 </html>

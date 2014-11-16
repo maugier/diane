@@ -63,6 +63,10 @@ io.on('connection', function(socket){
         io.emit('chat', msg); 
     });
 
+    socket.on('cmd', function(cmd) {
+        worldm.execute(world, cmd);
+    });
+
     socket.emit(running === undefined ? 'stop' : 'start');
     socket.emit('world', world);
 

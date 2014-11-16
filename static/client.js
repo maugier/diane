@@ -2,6 +2,8 @@ var socket = io();
 
 var world = undefined;
 
+var shipname = window.location.search.substr(1);
+
 function setStatus(code, text) {
     switch(code) {
         case 0:
@@ -43,3 +45,6 @@ function setDraw(draw) {
 
 }
             
+function shipCommand(cmd) {
+    socket.emit('cmd', {ship: shipname, cmd: cmd}); 
+}

@@ -6,8 +6,6 @@ var zoom_factors = [100,200,500,1000];
 
 var rings = [50,100,250,500,750,1000];
 
-var shipname = window.location.search.substr(1);
-
 function largeError(label) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = 'red';
