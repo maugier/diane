@@ -5,12 +5,13 @@ var io = require('socket.io')(http);
 
 var connection_count = 0;
 
-var world = require('./world.js').create();
+var worldm = require('./world.js');
+var world = worldm.create();
 
 var running = undefined;
 
 function tick() {
-    world.tick();
+    worldm.tick(world);
     io.emit('tick', world.time);
 }
 

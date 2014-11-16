@@ -9,10 +9,10 @@ models = {
     }
 }
 
-function tick() {
-    this.time += 1;
-    for (var name in this.ships) {
-        ship = this.ships[name];
+function tick(world) {
+    world.time += 1;
+    for (var name in world.ships) {
+        ship = world.ships[name];
         turn(ship);
         move(ship);
     }
@@ -64,7 +64,8 @@ exports.create = function() {
         },
         size_x: 100,
         size_y: 100,
-        tick: tick
     }
 }
+
+exports.tick = tick;
 
