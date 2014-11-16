@@ -10,11 +10,12 @@
     <body>
         <h1>Simulation status</h1>
         <p>Server: <span id="status" class="nok">DISCONNECTED</span></p>
-        <p>Simulation status: <span id="running" class="nok">?</span></p>
+        <p>Simulation status: <span id="running">?</span></p>
         <p>Simulation time: <span id="time" class="ok">0</span></p>
 
         <button class="ok" id="start">Start</button>
-        <button class="nok" id="stop">Stop</button>
+        <button class="warn" id="stop">Stop</button>
+        <button class="nok" id="reset">Reset</button>
 
         <p>Connected clients: <span id="connections" class="ok">?</span></p>
 
@@ -30,18 +31,22 @@
                $('#connections').text(count); 
             });
             global.on('start', function() {
-                $('#running').removeClass('nok').addClass('ok').text("Running");
+                $('#running').removeClass('warn').addClass('ok').text("Running");
             });
             global.on('stop', function() {
-                $('#running').removeClass('ok').addClass('nok').text("Paused");
+                $('#running').removeClass('ok').addClass('warn').text("Paused");
             });
             global.on('tick', function(time) {
                 $('#time').text(time);
+            });
+            global.on('world', function(w) {
+                $('#time').text(w.time);
             });
             
 
             $('#start').click(function(e) { global.emit('start', {}); });
             $('#stop').click(function(e) { global.emit('stop', {}); });
+            $('#reset').click(function(e) { global.emit('reset', {}); });
 
         </script>
     </body>

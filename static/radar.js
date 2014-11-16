@@ -2,13 +2,16 @@ var canvas = document.getElementById('radar');
 var ctx = canvas.getContext('2d');
 
 var zoom = 0;
-var zoom_factors = [50, 100, 200];
+var zoom_factors = [100,200,500,1000];
 
-var shipname = "Artemis";
+var rings = [50,100,250,500,750,1000];
+
+var shipname = window.location.search.substr(1);
 
 function largeError(label) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = 'red';
+    ctx.textAlign = 'center';
     ctx.fillText(label, 0, 0);
 }
 
@@ -21,14 +24,17 @@ function draw(world) {
     ctx.translate(canvas.width / 2, canvas.height / 2);
     var z = canvas.height / zoom_factors[zoom];
     ctx.scale(z,z);
+    ctx.lineWidth = 1 / z;
 
     ctx.strokeStyle = "blue";
     ctx.fillStyle = "blue";
-    for (var r in [10,20,50,100,200,500]) {
+    ctx.textBaseline = "top";
+    for (var r = 0; r < rings.length; r++) {
+        ring = rings[r];
         ctx.beginPath();
-        ctx.arc(0,0,r,0,Math.PI*2,false);
+        ctx.arc(0,0,ring,0,Math.PI*2,false);
         ctx.stroke();
-        ctx.fillText(r, 0, -r);
+        ctx.fillText(ring, 0, -ring);
     }
 
     ctx.translate(-me.x, -me.y);
@@ -41,14 +47,6 @@ function draw(world) {
     ctx.restore();
 }
     
-socket.on('disconnect', function() {
-    largeError("Disconnected");
-});
-
-socket.on('stop', function() {
-    largeError("Paused");
-});
-
 $('#zoomin').click(function(e) {
     if (zoom > 0) {
         zoom--;
@@ -62,3 +60,5 @@ $('#zoomout').click(function(e) {
         draw(world);
     }
 });
+
+setDraw(draw);

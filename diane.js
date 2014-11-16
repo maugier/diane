@@ -12,7 +12,8 @@ var running = undefined;
 
 function tick() {
     worldm.tick(world);
-    io.emit('tick', world.time);
+    //io.emit('tick', world.time);  //Optimized mode
+    io.emit('world', world);        // Compatible mode
 }
 
 function start() {

@@ -5,7 +5,7 @@ models = {
         size_x : 10,
         size_y : 10,
         max_speed: 10,
-        turn_speed: 0.2
+        turn_speed: 0.01
     }
 }
 
@@ -37,8 +37,8 @@ function turn(o) {
         o.h = o.th;
     }
 
-    o.vx = v * Math.sin(o.h);
-    o.vy = -v * Math.cos(o.h); 
+    o.vx = o.v * Math.sin(o.h);
+    o.vy = -o.v * Math.cos(o.h); 
 
 }
 
@@ -56,9 +56,9 @@ exports.create = function() {
                 vx: 0, vy: 0, v:0, h:0, th:0,
                 x: 0, y: 0, model: 'scout'
             },
-            Fucker: {
-                name: 'Fucker',
-                vx:0, vy: 1, v:1, h:0, th:0,
+            Diane: {
+                name: 'Diane',
+                vx:0, vy: 0, v:1, h:0, th:1,
                 x:30, y: 0, model: 'scout'
             }
         },

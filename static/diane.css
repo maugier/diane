@@ -24,3 +24,9 @@ span {
     color: red;
     border-color: red;
 }
+
+.warn {
+    background-color: #404000;
+    color: yellow;
+    border-color: yellow;
+}
