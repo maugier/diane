@@ -4,10 +4,33 @@
         <meta encoding="UTF-8">
         <title>Simulation Status</title>
         <link rel="stylesheet" href="diane.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
     </head>
     <body>
         <h1>Simulation status</h1>
-        <p>Simulation status: <span id="status">?</span></p>
-        <p>Connected stations: <span id="connections">?</span></p>
+        <p>Server: <span id="status" class="nok">DISCONNECTED</span></p>
+        <p>Simulation status: <span id="running" class="nok">?</span></p>
+
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+
+        <p>Connected clients: <span id="connections" class="ok">?</span></p>
+        <script> 
+            var global = io();  
+            global.on('connect', function() {
+                $('#status').removeClass('nok').addClass('ok').text("CONNECTED");        
+            });
+            global.on('disconnect', function() {
+                $('#status').removeClass('ok').addClass('nok').text("DISCONNECTED");        
+            });
+            global.on('cc', function(count) {
+               $('#connections').text(count); 
+            });
+
+            $('#start').click(function(e) { global.emit('start', {}); });
+            $('#stop').click(function(e) { global.emit('stop', {}); });
+
+        </script>
     </body>
 </html>

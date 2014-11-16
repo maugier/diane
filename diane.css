@@ -2,3 +2,15 @@ body {
     color: white;
     background-color: black;
 }
+
+.ok {
+    background-color: #004000;
+    color: "green";
+    border: solid 1px green;
+}
+
+.nok {
+    background-color: #400000;
+    color: "red";
+    border: solid 1px red;
+}
