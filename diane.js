@@ -1,3 +1,10 @@
+var argv = require('minimist')(process.argv.slice(2));
+
+if (argv.help) {
+    process.stderr.write("Usage: node diane.js [--auth]\n    ----auth: turn on auth mode\n");
+    process.exit(1);
+}
+
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);

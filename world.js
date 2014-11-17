@@ -8,9 +8,19 @@ models = {
         size_x : 10,
         size_y : 10,
         max_speed: 2.0,
-        turn_speed: 0.1
+        turn_speed: 0.1,
+        beams: [
+            {r: 50, from: -0.2, to: 0.2}
+        ]
+    },
+    station: {
+        size_x: 20,
+        size_y: 20,
+        max_speed: 0,
+        turn_speed: 0
     }
 }
+
 
 function tick(world) {
     world.time += 1;
