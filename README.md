@@ -21,7 +21,7 @@ For now, Canvas graphics only, hopefully a WebGL bridge view for the future.
 - Open a second browser to http://localhost:3000/helm?Artemis
 - Open a third browser to http://localhost:3000/helm?Diane
 - Click "start" in the first window. 
-
+- Use the slider to set the speed. Click in the radar window to change bearing.
 
 That's it for now.. I've only been working on this for a single day !
 
