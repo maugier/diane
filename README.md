@@ -14,8 +14,10 @@ For now, Canvas graphics only, hopefully a WebGL bridge view for the future.
 
 - Pull the deps, then run the server:
 
-    npm install
-    node diane.js
+```
+npm install
+node diane.js
+```
 
 - Open a browser window to http://localhost:3000/ (this is the simulation controls)
 - Open a second browser to http://localhost:3000/helm?Artemis
