@@ -6,13 +6,6 @@ var zoom_factors = [100,200,500,1000];
 
 var rings = [50,100,250,500,750,1000];
 
-function largeError(label) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'red';
-    ctx.textAlign = 'center';
-    ctx.fillText(label, 0, 0);
-}
-
 function draw(world) {
 
     var me = world.ships[shipname];
@@ -60,3 +53,4 @@ $('#zoomout').click(function(e) {
 });
 
 setDraw(draw);
+

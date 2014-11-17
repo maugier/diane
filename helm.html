@@ -28,6 +28,14 @@
                 console.log("Set speed to " + $(this).val());
                 shipCommand({speed: $(this).val()});
             });
+
+            $(canvas).click(function(e) {
+                var rect = canvas.getBoundingClientRect();
+                var x = e.clientX - (rect.left + rect.right)/2;
+                var y = e.clientY - (rect.top + rect.bottom)/2;
+                var angle = Math.atan2(x,-y);
+                shipCommand({angle: angle});
+            });
         </script>
     </body>
 </html>
