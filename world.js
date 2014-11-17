@@ -5,13 +5,14 @@ var PIHalf = Math.PI / 2;
 
 models = {
     scout: {
+        max_hp: 100,
         size_x : 10,
         size_y : 10,
         max_speed: 2.0,
         turn_speed: 0.1,
-        beams: [
-            {r: 50, from: -0.2, to: 0.2}
-        ]
+        beams: {
+            main: {r: 20, from: -0.6, to: 0.6, dmg: 1, reload: 3000, duration: 500 }
+        }
     },
     station: {
         size_x: 20,
@@ -29,6 +30,10 @@ function tick(world) {
         turn(ship);
         move(ship);
     }
+}
+
+function rel_bearing(ship, target) {
+    return rangle(Math.atan2(target.x - ship.x, ship.y - target.y))
 }
 
 function execute(world, cmd) {

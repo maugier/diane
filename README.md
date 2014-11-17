@@ -52,7 +52,6 @@ an optional access control mechanism available, where players login to a lobby, 
 - Weapons
   - Weapons behaviour modeling
   - Weapons officier station
-  - Beam arc display on radar
 
 - Simulation
   - Collisions
@@ -65,3 +64,4 @@ an optional access control mechanism available, where players login to a lobby, 
   - Allow game master to form crews, crew captain to assign stations ?
   - Open links to game consoles in new windows
 
+- AI for the ships
