@@ -1,11 +1,14 @@
 /* World simulation */
 
+var PI2 = Math.PI * 2;
+var PIHalf = Math.PI / 2;
+
 models = {
     scout: {
         size_x : 10,
         size_y : 10,
         max_speed: 2.0,
-        turn_speed: 0.01
+        turn_speed: 0.1
     }
 }
 
@@ -31,11 +34,32 @@ function execute(world, cmd) {
         console.log(cmd.ship + " speed set to " + ship.v);
     }
 
+    if (c.angle !== undefined) {
+        ship.th = angle(c.angle);
+        console.log(cmd.ship + " heading set to " + ship.th * 360 / PI2);
+    }
+
 }
 
 
+// Working around broken modulo operator
 function angle(x) {
-    return ((x + (Math.PI / 2)) % Math.PI) - (Math.PI / 2);
+    x = x % PI2;
+    if (x < 0) {
+        x += PI2;
+    }
+    return x;
+}
+
+function rangle(x) {
+    x = x % PI2;
+    if (x < Math.PI) {
+        x += PI2;
+    }
+    if (x > Math.PI) {
+        x -= PI2;
+    }
+    return x;
 }
 
 function speed(o) {
@@ -48,12 +72,12 @@ function turn(o) {
         return;
 
     m = models[o.model];
-    delta = angle(o.th - o.h);
+    delta = rangle(o.th - o.h);
 
     if (delta > m.turn_speed) {
-        o.h += m.turn_speed 
+        o.h = angle(o.h + m.turn_speed);
     } else if (0 - delta > m.turn_speed) {
-        o.h += m.turn_speed;
+        o.h = angle(o.h - m.turn_speed);
     } else {
         o.h = o.th;
     }
@@ -78,7 +102,7 @@ exports.create = function() {
             },
             Diane: {
                 name: 'Diane',
-                vx:0, vy: 0, v:1, h:0, th:1,
+                vx:0, vy: 0, v:0, h:0, th:1,
                 x:30, y: 0, model: 'scout'
             }
         },
