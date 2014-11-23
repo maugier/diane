@@ -4,6 +4,10 @@ var world = undefined;
 
 var shipname = window.location.search.substr(1);
 
+function myShip() {
+    return world.ships[shipname];
+}
+
 function setStatus(code, text) {
     switch(code) {
         case 0:

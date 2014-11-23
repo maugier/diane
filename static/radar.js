@@ -35,6 +35,11 @@ function draw(world) {
         drawship(ctx, ship);
     }
 
+    if (me.target) {
+        var tgt = world.ships[me.target];
+        ctx.translate(tgt.x, tgt.y);
+        drawscope(ctx);
+    }
     ctx.restore();
 }
     

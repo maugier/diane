@@ -6,8 +6,7 @@ var PIHalf = Math.PI / 2;
 models = {
     scout: {
         max_hp: 100,
-        size_x : 10,
-        size_y : 10,
+        size : 5,
         max_speed: 2.0,
         turn_speed: 0.1,
         beams: {
@@ -15,8 +14,7 @@ models = {
         }
     },
     station: {
-        size_x: 20,
-        size_y: 20,
+        size: 20,
         max_speed: 0,
         turn_speed: 0
     }
@@ -52,6 +50,11 @@ function execute(world, cmd) {
     if (c.angle !== undefined) {
         ship.th = angle(c.angle);
         console.log(cmd.ship + " heading set to " + ship.th * 360 / PI2);
+    }
+
+    if (c.target !== undefined) {
+        ship.target = c.target;
+        console.log(cmd.ship + " targetting " + c.target);
     }
 
 }
@@ -106,6 +109,26 @@ function move(o) {
     o.y += o.vy;
 }
 
+function locate(world, x, y) {
+    var d = 1000000;
+    var best = undefined;
+    for (var on in world.ships) {
+        o = world.ships[on];
+        var dx = x - o.x;
+        var dy = y - o.y;
+        var d2 = dx*dx + dy*dy;
+
+        var size = models[o.model].size;
+
+        if (d2 < size*size && d2 < d) {
+            d = d2;
+            best = on;
+        }
+            
+    }
+    return best;
+}
+
 exports.create = function() {
     return {
         time: 0,
@@ -128,4 +151,5 @@ exports.create = function() {
 
 exports.tick = tick;
 exports.execute = execute;
+exports.locate = locate;
 

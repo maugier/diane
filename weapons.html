@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta encoding="UTF-8">
+        <title>Weapons</title>
+        <link rel="stylesheet" href="/static/diane.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+    </head>
+    <body>
+        <h1>Helm - <span id="status" class="nok">Disconnected</span></h1>
+
+        <div>
+        <canvas id="radar" width="800" height="600" />
+        </div>
+
+        <div id="zoomcontrols">
+            <button id="zoomin">+</button>
+            <button id="zoomout">-</button>
+        </div>
+
+        <script src="/world.js"></script>
+        <script src="/static/client.js"></script>
+        <script src="/static/draw.js"></script>
+        <script src="/static/radar.js"></script>
+        <script>
+            $('#speed').change(function(e) {
+                console.log("Set speed to " + $(this).val());
+                shipCommand({speed: $(this).val()});
+            });
+
+            $(canvas).click(function(e) {
+                var rect = canvas.getBoundingClientRect();
+
+                var x = e.clientX - (rect.left + rect.right)/2;
+                var y = e.clientY - (rect.top + rect.bottom)/2;
+
+                var z = zoom_factors[zoom] / canvas.height;
+
+                var me = myShip();
+
+                var target = locate(world, x*z + me.x, y*z + me.y);
+
+                shipCommand({target: target});
+            });
+        </script>
+    </body>
+</html>

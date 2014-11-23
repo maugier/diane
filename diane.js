@@ -48,6 +48,10 @@ app.get('/helm', function(req,res) {
     res.sendFile(__dirname + "/helm.html"); 
 });
 
+app.get('/weapons', function(req,res) {
+    res.sendFile(__dirname + "/weapons.html");
+});
+
 app.get('/world.js', function(req,res) {
     res.sendFile(__dirname + "/world.js");
 });

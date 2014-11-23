@@ -11,6 +11,27 @@ var d2model = {
     }
 }
 
+
+function drawscope(ctx) {
+        ctx.strokeStyle = "cyan";
+
+        ctx.beginPath();
+        ctx.arc(0,0,3,0,PI2, false);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(-4,0);
+        ctx.lineTo(4,0);
+        ctx.stroke();
+
+
+        ctx.beginPath();
+        ctx.moveTo(0,-4);
+        ctx.lineTo(0,4);
+        ctx.stroke();
+
+}
+
 function drawbeam(ctx, beam) {
     r = beam.r;
     f = beam.from;
