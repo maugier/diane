@@ -21,6 +21,8 @@ models = {
 }
 
 
+
+
 function tick(world) {
     world.time += 1;
     for (var name in world.ships) {
@@ -109,6 +111,10 @@ function move(o) {
     o.y += o.vy;
 }
 
+function hostile(a, b) {
+    return (a != b) && a != 'neutral' && b != 'neutral'; // All different factions are enemies
+}
+
 function locate(world, x, y) {
     var d = 1000000;
     var best = undefined;
@@ -129,24 +135,48 @@ function locate(world, x, y) {
     return best;
 }
 
-exports.create = function() {
-    return {
-        time: 0,
-        ships: {
-            Artemis: {
-                name: 'Artemis', 
-                vx: 0, vy: 0, v:0, h:0, th:0,
-                x: 0, y: 0, model: 'scout'
-            },
-            Diane: {
-                name: 'Diane',
-                vx:0, vy: 0, v:0, h:0, th:1,
-                x:30, y: 0, model: 'scout'
-            }
-        },
-        size_x: 100,
-        size_y: 100,
+function Ship(name, faction, x, y, model) {
+    this.name = name;
+    this.faction = faction;
+
+    this.x = x;
+    this.y = y;
+    this.vx = 0;
+    this.vy = 0;
+    this.th = 0;
+    this.h = 0;
+    this.model = model;
+    this.scanned = {};
+    this.beams = {};
+}
+
+Ship.prototype.fof = function(tgt) {
+    if (this.faction == 'neutral' || tgt.faction == 'neutral') {
+        return 'neutral';
     }
+    if (tgt.faction == this.faction) {
+        return 'friendly';
+    }
+    if (this.scanned[tgt.name]) {
+        return 'enemy';
+    }
+    return 'unknown';
+    
+}
+
+function World() {
+    this.time = 0;
+    this.ships = {
+        Artemis: new Ship('Artemis', 'alpha', 0, 0, 'scout'),
+        Diane: new Ship('Diane', 'bravo', 30, 0, 'scout')
+    }
+    this.size_x = 1000;
+    this.size_y = 1000;
+}
+
+
+exports.create = function() {
+    return new World();
 }
 
 exports.tick = tick;
