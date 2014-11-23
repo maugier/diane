@@ -11,6 +11,11 @@ var d2model = {
     }
 }
 
+enemy_style = "red";
+friendly_style = "green";
+neutral_style = "cyan";
+unknown_style = "white";
+
 
 function drawscope(ctx) {
         ctx.strokeStyle = "cyan";
@@ -21,13 +26,22 @@ function drawscope(ctx) {
 
         ctx.beginPath();
         ctx.moveTo(-4,0);
-        ctx.lineTo(4,0);
+        ctx.lineTo(-2,0);
         ctx.stroke();
 
+        ctx.beginPath();
+        ctx.moveTo(4,0);
+        ctx.lineTo(2,0);
+        ctx.stroke();
 
         ctx.beginPath();
         ctx.moveTo(0,-4);
-        ctx.lineTo(0,4);
+        ctx.lineTo(0,-2);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(0,4);
+        ctx.lineTo(0,2);
         ctx.stroke();
 
 }
