@@ -10,6 +10,12 @@
     <body>
         <h1>Weapons - <span id="status" class="nok">Disconnected</span></h1>
 
+        <div id="weapons" class="panel">
+            <div>
+                Target: <span id="target">----</span>
+            </div>
+        </div>
+
         <div>
         <canvas id="radar" width="800" height="600" />
         </div>
@@ -42,6 +48,10 @@
                 var target = locate(world, x*z + me.x, y*z + me.y);
 
                 shipCommand({target: target});
+            });
+
+            setDraw(function(world) {
+                $('#target').text(myShip().target);
             });
         </script>
     </body>
