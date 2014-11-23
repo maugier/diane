@@ -11,6 +11,15 @@ button {
 span {
     border-width: 1px;
     border-style: solid;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.panel {
+    float: right;
+    border-style: solid;
+    border-color: green;
+    padding: 20px;
 }
 
 .ok {
