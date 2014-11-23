@@ -49,16 +49,26 @@ function drawscope(ctx) {
 }
 
 function drawbeam(ctx, beam) {
-    r = beam.r;
-    f = beam.from;
-    t = beam.to;
+    var rmin = beam.r_min;
+    var rmax = beam.r_max;
+    var f = beam.from;
+    var t = beam.to;
     ctx.beginPath();
-    ctx.moveTo(r * Math.sin(f), -r * Math.cos(f));
-    ctx.lineTo(0,0);
-    ctx.lineTo(r * Math.sin(t), -r * Math.cos(t));
+    ctx.moveTo(rmin * Math.sin(f), -rmin * Math.cos(f));
+    ctx.lineTo(rmax * Math.sin(f), -rmax * Math.cos(f));
     ctx.stroke();
+
     ctx.beginPath();
-    ctx.arc(0,0,r,f - PIHalf,t - PIHalf,false);
+    ctx.moveTo(rmin * Math.sin(t), -rmin * Math.cos(t));
+    ctx.lineTo(rmax * Math.sin(t), -rmax * Math.cos(t));
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(0,0,rmin,f - PIHalf,t - PIHalf,false);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(0,0,rmax,f - PIHalf,t - PIHalf,false);
     ctx.stroke();
 }
 

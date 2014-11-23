@@ -3,6 +3,10 @@
 var PI2 = Math.PI * 2;
 var PIHalf = Math.PI / 2;
 
+function square(x) {
+    return x*x;
+}
+
 models = {
     scout: {
         max_hp: 100,
@@ -10,7 +14,7 @@ models = {
         max_speed: 2.0,
         turn_speed: 0.1,
         beams: {
-            main: {r: 20, from: -0.6, to: 0.6, dmg: 1, reload: 70, duration: 30 }
+            main: {r_min: 3, r_max: 20, from: -0.6, to: 0.6, dmg: 1, reload: 70, duration: 30 }
         }
     },
     station: {
@@ -21,15 +25,13 @@ models = {
 }
 
 
-
-
 function tick(world) {
     world.time += 1;
     for (var name in world.ships) {
         ship = world.ships[name];
         turn(ship);
         move(ship);
-        fire(ship);
+        fire(ship, world);
     }
 }
 
@@ -39,6 +41,12 @@ function rad2deg(t) {
 
 function rel_bearing(ship, target) {
     return rangle(Math.atan2(target.x - ship.x, ship.y - target.y));
+}
+
+function rel_distance2(ship, target) {
+    var dx = ship.x - target.x;
+    var dy = ship.y - target.y;
+    return dx*dx + dy*dy;
 }
 
 function execute(world, cmd) {
@@ -116,12 +124,25 @@ function move(o) {
     o.y += o.vy;
 }
 
-function fire(o) {
-    //TODO
+function fire(o, world) {
+    t = world.ships[o.target];
+    for (var bn in o.beams) {
+        var b = o.beams[bn];
+        //if (!b.firing && 
+    }
 }
 
 function hostile(a, b) {
     return (a != b) && a != 'neutral' && b != 'neutral'; // All different factions are enemies
+}
+
+function beam_in_range(ship, target, beam) {
+    var tgt_angle = rel_bearing(ship, target);
+    var tgt_dist2 = rel_distance2(ship, target);
+    return (square(beam.r_min) <= tgt_dist2 &&
+            tgt_dist2 <= square(beam.r_max) &&
+            beam.from <= tgt_angle &&
+            tgt_angle <= beam.to);
 }
 
 function locate(world, x, y) {
