@@ -10,7 +10,7 @@ models = {
         max_speed: 2.0,
         turn_speed: 0.1,
         beams: {
-            main: {r: 20, from: -0.6, to: 0.6, dmg: 1, reload: 3000, duration: 500 }
+            main: {r: 20, from: -0.6, to: 0.6, dmg: 1, reload: 70, duration: 30 }
         }
     },
     station: {
@@ -29,11 +29,16 @@ function tick(world) {
         ship = world.ships[name];
         turn(ship);
         move(ship);
+        fire(ship);
     }
 }
 
+function rad2deg(t) {
+    return Math.round(t * 180 / Math.PI);
+}
+
 function rel_bearing(ship, target) {
-    return rangle(Math.atan2(target.x - ship.x, ship.y - target.y))
+    return rangle(Math.atan2(target.x - ship.x, ship.y - target.y));
 }
 
 function execute(world, cmd) {
@@ -111,6 +116,10 @@ function move(o) {
     o.y += o.vy;
 }
 
+function fire(o) {
+    //TODO
+}
+
 function hostile(a, b) {
     return (a != b) && a != 'neutral' && b != 'neutral'; // All different factions are enemies
 }
@@ -138,6 +147,9 @@ function locate(world, x, y) {
 function Ship(name, faction, x, y, model) {
     this.name = name;
     this.faction = faction;
+    this.model = model;
+
+    this.hp = models[model].max_hp;
 
     this.x = x;
     this.y = y;
@@ -145,9 +157,13 @@ function Ship(name, faction, x, y, model) {
     this.vy = 0;
     this.th = 0;
     this.h = 0;
-    this.model = model;
     this.scanned = {};
     this.beams = {};
+
+    for (var b in models[model].beams) {
+        this.beams[b] = {firing: false, time: 0}
+    }
+
 }
 
 Ship.prototype.fof = function(tgt) {

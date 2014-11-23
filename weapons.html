@@ -12,7 +12,9 @@
 
         <div id="weapons" class="panel">
             <div>
-                Target: <span id="target">----</span>
+                Target: <span id="target">---</span>
+                <br/>
+                Bearing: <span id="bearing">---</span>
             </div>
         </div>
 
@@ -51,7 +53,12 @@
             });
 
             setDraw(function(world) {
-                $('#target').text(myShip().target);
+                var me = myShip();
+                if (me.target) {
+                    var tgt = world.ships[me.target];
+                    $('#target').text(me.target);
+                    $('#bearing').text(rad2deg(rel_bearing(me, tgt)) + "°");
+                }
             });
         </script>
     </body>
