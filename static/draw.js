@@ -11,10 +11,12 @@ var d2model = {
     }
 }
 
-enemy_style = "red";
-friendly_style = "green";
-neutral_style = "cyan";
-unknown_style = "white";
+fof_style = {
+    enemy: "red",
+    friendly: "green",
+    neutral: "cyan",
+    unknown: "white"
+}
 
 
 function drawscope(ctx) {
